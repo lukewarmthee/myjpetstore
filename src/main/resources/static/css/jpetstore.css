@@ -24,7 +24,7 @@ h1 {
     color: #666;
 }
 
-#Welcome{
+#Welcome {
     color: darkorange;
 }
 
@@ -66,23 +66,24 @@ li {
 }
 
 table {
-    font-family: verdana,arial,sans-serif;
-    font-size:11px;
-    color:#333333;
+    font-family: verdana, arial, sans-serif;
+    font-size: 11px;
+    color: #333333;
     border-width: 1px;
     border-color: #999999;
     border-collapse: collapse;
 }
+
 th {
-    background-color:#c3dde0;
+    background-color: #c3dde0;
     border-width: 1px;
     padding: 8px;
     border-style: solid;
     border-color: #a9c6c9;
 }
 
-tr{
-    background-color:#d4e3e5;
+tr {
+    background-color: #d4e3e5;
 }
 
 td {
@@ -134,7 +135,7 @@ a.Button:hover {
     height: 9ex;
 }
 
-body>#Logo {
+body > #Logo {
     height: 9ex;
 }
 
@@ -164,7 +165,7 @@ body>#Logo {
     font-family: helvetica, tahoma, arial, verdana, sans-serif;
 }
 
-body>#Menu {
+body > #Menu {
     height: 9ex;
 }
 
@@ -189,7 +190,7 @@ body>#Menu {
     height: 9ex;
 }
 
-body>#Search {
+body > #Search {
     height: 9ex;
 }
 
@@ -224,7 +225,7 @@ body>#Search {
     height: 9ex;
 }
 
-body>#PoweredBy {
+body > #PoweredBy {
     height: 9ex;
 }
 
@@ -245,7 +246,7 @@ body>#PoweredBy {
     height: 9ex;
 }
 
-body>#Banner {
+body > #Banner {
     height: 9ex;
 }
 
@@ -259,9 +260,9 @@ body>#Banner {
 }
 
 #Separator {
-    clear:both;
+    clear: both;
     margin: 0;
-    height:0;
+    height: 0;
 }
 
 #Main {
@@ -276,44 +277,45 @@ body>#Banner {
 
 #Sidebar {
     float: left;
-    background:inherit;
+    background: inherit;
     width: 30%;
 }
 
 #MainImage {
     float: left;
-    background:inherit;
-    text-align:center;
+    background: inherit;
+    text-align: center;
     width: 50%;
 }
 
 #Catalog {
     padding: 1ex;
-    background:inherit;
-    text-align:center;
+    background: inherit;
+    text-align: center;
 }
 
-#Catalog input[type="submit"]{
+#Catalog input[type="submit"] {
     padding: .3ex;
     color: #fff;
     background-color: #005e21;
     text-decoration: none;
     font-family: helvetica, tahoma, arial, verdana, sans-serif;
     font-size: 1.5ex;
-    border-width:0;
+    border-width: 0;
 }
+
 #Catalog input[type="submit"]:hover {
     color: #a9c6c9;
     background-color: #54c07a;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-#Catalog table{
-    margin-left:auto;
-    margin-right:auto;
+#Catalog table {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#BackLink{
+#BackLink {
     padding: 1ex;
     float: right;
     border-width: .1ex 0ex .1ex 0px;
@@ -321,15 +323,15 @@ body>#Banner {
     border-color: #a9c6c9;
 }
 
-#Cart{
+#Cart {
     width: 69.99%;
     float: left;
     background-color: #fff;
 }
 
-#MyList{
+#MyList {
     width: 30%;
     float: left;
-    background-color:#ccc;
-    text-align:left;
+    background-color: #ccc;
+    text-align: left;
 }

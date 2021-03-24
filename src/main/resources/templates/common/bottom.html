@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--这里的fragment=""中可能必须是footer,表示过后再main等页面中取代footer的位置-->
+<footer th:fragment="footer">
+    <div id="Footer">
+        <div id="PoweredBy">&nbsp<a href="www.csu.edu.cn">www.csu.edu.cn</a>
+        </div>
+
+        <!--列出用户喜欢的标题-->
+        <div id="Banner">
+            <c:if test="${sessionScope.account.bannerOption} != null">
+                ${sessionScope.account.bannername}
+            </c:if>
+        </div>
+
+    </div>
+</footer>
+</body>
+</html>
