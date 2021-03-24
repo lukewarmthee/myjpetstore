@@ -186,8 +186,6 @@ body > #Menu {
     color: #eaac00;
     line-height: 9ex;
     voice-family: "\"}\"";
-    voice-family: inherit;
-    height: 9ex;
 }
 
 body > #Search {
@@ -230,7 +228,7 @@ body > #PoweredBy {
 }
 
 #Banner {
-    width: 69%;
+    width: 70%;
     height: 9ex;
     margin: 0ex 0ex 0ex 0ex;
     padding: 0ex 0ex 0ex 0ex;
@@ -330,7 +328,7 @@ body > #Banner {
 }
 
 #MyList {
-    width: 30%;
+    width: 33%;
     float: left;
     background-color: #ccc;
     text-align: left;
