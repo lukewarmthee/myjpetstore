@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--采用相对路径,将top文件夹中取代header的部分移过来-->
+<div th:replace="common/top"></div>
+<!--不要把contest为id的这个div给忽略了啊大哥-->
+<div id="Content">
+    <div id="BackLink">
+        <a href="main">Return to Main Menu</a>
+    </div>
+
+    <div id="Catalog">
+
+<!--thymeleaf渲染引擎比较强大的地方在于可以直接返回某个属性-->
+        <h2 th:text="${category.name}">此处显示这个页面对应的Category的name属性</h2>
+
+        <table>
+            <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+            </tr>
+<!--这里使用thymeleaf的each属性,写法如下:th:each="product:${productList}}"-->
+            <tr th:each="product:${productList}">
+                <td th:text="${product.productId}">productId</td>
+                <td th:text="${product.name}">product.name</td>
+            </tr>
+
+<!--暂时注释掉,之后可能用来实现某些功能-->
+<!--            <c:forEach var="product" items="${sessionScope.productList}">-->
+<!--                <tr>-->
+<!--                    <td>-->
+<!--                        <a href="viewProduct?productId=${product.productId}">${product.productId}</a>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        ${product.name}-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </c:forEach>-->
+        </table>
+
+    </div>
+</div>
+<div th:replace="common/bottom"></div>
+</body>
+</html>

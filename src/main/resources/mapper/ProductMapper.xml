@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.csu.mypetstore.persistence.ProductMapper">
+
+<!--这里面加入输入的是一个string类型,则#{}中间的东西随意呢-->
+    <select id="getProductListByCategory" parameterType="string" resultType="Product">
+      select
+        productid,
+        name,
+        descn as description,
+        category as categoryId
+      from product
+      where category = #{value}
+    </select>
+
+<!--和ProductMapper中的getProduct方法对应-->
+    <select id="getProduct" parameterType="string" resultType="Product">
+        select
+            productid,
+            name,
+            descn as description,
+            category as categoryId
+        from product
+        where productid = #{value}
+    </select>
+</mapper>

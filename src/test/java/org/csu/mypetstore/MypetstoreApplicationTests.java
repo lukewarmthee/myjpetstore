@@ -1,6 +1,7 @@
 package org.csu.mypetstore;
 
 import org.csu.mypetstore.domain.Category;
+import org.csu.mypetstore.domain.Product;
 import org.csu.mypetstore.service.CatalogService;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
@@ -27,5 +28,17 @@ class MypetstoreApplicationTests {
         List<Category> a = catalogService.getCategoryList();
         System.out.println(a.get(0).getCategoryId()+" "+a.get(1).getCategoryId()+" ");
     }
+    //GET!!
+
+    //对productMapper在catalogService中的两个方法进行测试.
+    @Test
+    void testProduct(){
+        List<Product> pList = catalogService.getProductListByCategory("BIRDS");
+        Product p = catalogService.getProduct("AV-CB-01");
+        System.out.println(pList.size()+" "+pList.get(0).getProductId());
+        System.out.println(p.getName()+" "+ p.getProductId());
+    }
+    //GET!!
+
 
 }
