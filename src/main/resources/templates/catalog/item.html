@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--采用相对路径,将top文件夹中取代header的部分移过来-->
+<div th:replace="common/top"></div>
+<!--不要把contest为id的这个div给忽略了啊大哥-->
+<div id="Content">
+    <!--使用thymeleaf写带链接的结点,参照:
+    th:text="${product.productId}" th:href="@{/catalog/viewProduct(productId=${product.productId})}"
+    -->
+    <div id="BackLink">
+        <a th:href="@{/catalog/viewProduct(productId=${product.productId})}" th:text="'Return to '+${product.name}"></a>
+    </div>
+
+    <div id="Catalog">
+
+        <table>
+            <tr>
+                <td th:utext="${product.description}">第一行:宠物个体对应产品的简介,使用uTEXT会将数据库的图片进行显示</td>
+            </tr>
+            <tr>
+                <td th:text="${item.itemId}"><b>第二行宠物个体的itemId</b></td>
+            </tr>
+            <tr>
+                <td><span style="font-size: small; "><b th:text="${item.attribute1}">
+                </b></span></td>
+            </tr>
+            <tr>
+                <td th:text="${product.name}">所对应的产品名</td>
+            </tr>
+            <!--此行内容选择,若是库存小于等于0,则返回back ordered, 否则返回quantity in stock-->
+            <tr>
+                <td>
+                    <span th:if="${item.quantity} le 0">Back ordered</span>
+                    <span th:if="${item.quantity} gt 0" th:text="${item.quantity+' in stock.'}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="${item.listPrice}">此处是item的价格</td>
+            </tr>
+
+            <!--此乃添加到购物车功能,稍后修改-->
+            <!--            <tr>-->
+            <!--                <td>-->
+            <!--                    <a class="Button" href="addItemToCart?workingItemId=${item.itemId}">Add to Cart</a>-->
+            <!--                </td>-->
+            <!--            </tr>-->
+        </table>
+
+    </div>
+</div>
+<div th:replace="common/bottom"></div>
+
+</body>
+</html>

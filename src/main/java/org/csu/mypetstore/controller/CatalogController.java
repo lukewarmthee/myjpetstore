@@ -48,4 +48,16 @@ public class CatalogController {
         }
         return "catalog/product";
     }
+
+    //为viewItem添加页面跳转,得到itemId,返回对象item和product
+    @GetMapping("/viewItem")
+    public String viewItem(String itemId, Model model) {
+        if (itemId != null) {
+            Item item = catalogService.getItem(itemId);
+            Product product = item.getProduct();
+            model.addAttribute("item",item);
+            model.addAttribute("product",product);
+        }
+        return"catalog/item";   //返回catalog目录下的item.html
+    }
 }
