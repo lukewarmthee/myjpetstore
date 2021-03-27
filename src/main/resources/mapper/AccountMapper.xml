@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.csu.mypetstore.persistence.AccountMapper">
+
+<!--沙雕,下次注释的时候请你直接按ctrl+/好吗,数据库根据用户名查询用户存在与否-->
+    <select id="getAccountByUsername"  parameterType="string" resultType="Account">
+        SELECT
+            SIGNON.USERNAME,
+            SIGNON.PASSWORD,
+            ACCOUNT.EMAIL,
+            ACCOUNT.LASTNAME,
+            ACCOUNT.STATUS,
+            ACCOUNT.ADDR1 AS address1,
+            ACCOUNT.ADDR2 AS address2,
+            ACCOUNT.CITY,
+            ACCOUNT.STATE,
+            ACCOUNT.ZIP,
+            ACCOUNT.COUNTRY,
+            ACCOUNT.PHONE,
+            PROFILE.LANGPREF AS languagePreference,
+            PROFILE.MYLISTOPT AS listOption,
+            PROFILE.BANNEROPT AS bannerOption,
+            BANNERDATA.BANNERNAME
+        FROM ACCOUNT,PROFILE,SIGNON,BANNERDATA
+        WHERE ACCOUNT.USERID = #{usrename}
+        AND SIGNON.USERNAME = ACCOUNT.USERID
+        AND PROFILE.USERID = ACCOUNT.USERID
+        AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY
+    </select>
+
+<!--与getAccountByUsernameAndPassword相对应的sql语句,好像标准的写法是不会返回用户的密码,可能客户端会有什么神奇的方法获取他-->
+    <select id="getAccountByUsernameAndPassword" parameterType="Account" resultType="Account">
+        SELECT
+            SIGNON.USERNAME,
+            SIGNON.PASSWORD,
+            ACCOUNT.EMAIL,
+            ACCOUNT.FIRSTNAME,
+            ACCOUNT.LASTNAME,
+            ACCOUNT.STATUS,
+            ACCOUNT.ADDR1 AS address1,
+            ACCOUNT.ADDR2 AS address2,
+            ACCOUNT.CITY,
+            ACCOUNT.STATE,
+            ACCOUNT.ZIP,
+            ACCOUNT.COUNTRY,
+            ACCOUNT.PHONE,
+            PROFILE.LANGPREF AS languagePreference,
+            PROFILE.FAVCATEGORY AS favouriteCategoryId,
+            PROFILE.MYLISTOPT AS listOption,
+            PROFILE.BANNEROPT AS bannerOption,
+            BANNERDATA.BANNERNAME
+        FROM ACCOUNT, PROFILE, SIGNON, BANNERDATA
+        WHERE ACCOUNT.USERID = #{username}
+          AND SIGNON.PASSWORD = #{password}
+          AND SIGNON.USERNAME = ACCOUNT.USERID
+          AND PROFILE.USERID = ACCOUNT.USERID
+          AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY
+    </select>
+
+<!--更新Account表-->
+    <update id="updateAccount" parameterType="Account">
+        UPDATE ACCOUNT SET
+            EMAIL = #{email},
+            FIRSTNAME = #{firstName},
+            LASTNAME = #{lastName},
+            STATUS = #{status},
+            ADDR1 = #{address1},
+            ADDR2 = #{address2},
+            CITY = #{city},
+            STATE = #{state},
+            ZIP = #{zip},
+            COUNTRY = #{country},
+            PHONE = #{phone}
+        WHERE USERID = #{username}
+    </update>
+
+<!--Account表新插入一条数值-->
+    <insert id="insertAccount" parameterType="Account">
+        INSERT INTO ACCOUNT
+        (EMAIL, FIRSTNAME, LASTNAME, STATUS, ADDR1, ADDR2, CITY, STATE, ZIP, COUNTRY, PHONE, USERID)
+        VALUES
+        (#{email}, #{firstName}, #{lastName}, #{status}, #{address1},  #{address2,jdbcType=VARCHAR}, #{city}, #{state}, #{zip}, #{country}, #{phone}, #{username})
+    </insert>
+
+<!--更新Profile表-->
+    <update id="updateProfile" parameterType="Account">
+        UPDATE PROFILE SET
+            LANGPREF = #{languagePreference},
+            FAVCATEGORY = #{favouriteCategoryId}
+        WHERE USERID = #{username}
+    </update>
+
+<!--Profile表中插入一条信息-->
+    <insert id="insertProfile" parameterType="Account">
+        INSERT INTO PROFILE (LANGPREF, FAVCATEGORY, USERID)
+        VALUES (#{languagePreference}, #{favouriteCategoryId}, #{username})
+    </insert>
+
+<!--Signon表更新一条数值-->
+    <update id="updateSignon" parameterType="Account">
+        UPDATE SIGNON SET PASSWORD = #{password}
+        WHERE USERNAME = #{username}
+    </update>
+
+<!--Signon表插入一条信息-->
+    <insert id="insertSignon" parameterType="Account">
+        INSERT INTO SIGNON (PASSWORD,USERNAME)
+        VALUES (#{password},#{username})
+    </insert>
+
+
+
+</mapper>

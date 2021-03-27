@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--采用相对路径,将top文件夹中取代header的部分移过来-->
+<div th:replace="common/top"></div>
+<!--不要把contest为id的这个div给忽略了啊大哥-->
+
+<div id="Content">
+    <!--暂且不知这一部分是干什么用的-->
+    <!--    <ul class="messages">-->
+    <!--        <li>${sessionScope.messageSignOn}</li>-->
+    <!--    </ul>-->
+
+    <div id="Catalog">
+<!--这是一个表单,post方法,传输一个account对象过去-->
+        <form action="/account/login" method="post">
+            <h3>Every dog has it's day!!</h3>
+        用户名:<input type="text" name="username"><br>
+        &nbsp&nbsp密码&nbsp&nbsp:<input type="text" name="password"/><br>
+            <input type="submit" name="signon" value="Login"/>
+        <span style="color: red; "><div th:text="${msg}"></div></span>
+        </form>
+        Need a user name and password?
+        <!--这是提示登录,url采用绝对路径,控制器返回到注册页面到时候-->
+        <a href="/account/viewRegister">Register Now!</a>
+    </div>
+
+</div>
+<div th:replace="common/bottom"></div>
+</body>
+</html>

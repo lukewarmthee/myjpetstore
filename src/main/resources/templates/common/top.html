@@ -18,24 +18,30 @@
         <div id="Menu">
             <div id="MenuContent">
                 <!--购物车-->
-                <a href="viewCart"><img align="middle" name="img_cart" src="../images/cart.gif"/></a>
-                <img align="middle" src="../images/separator.gif"/>
-                <c:if test="${sessionScope.account == null}">
-                    <a href="signOnForm">Sign In</a>
-                </c:if>
-                <c:if test="${sessionScope.account != null}">
-                    <a href="signOff">Sign Out</a>
-                    <!---signOff-->
-                </c:if>
+                <!--                    <a <img align="middle" name="img_cart" src="../images/cart.gif" /></a>-->
+                <a th:href="@{/cart/viewCart(username=${session.account.username})}"
+                   th:if="${session.account} ne null">
+                    <img align="middle" name="img_cart" src="../images/cart.gif" />
+                </a>
+                <a href="/account/viewLogin" th:if="${session.account} eq null">
+                    <img align="middle" name="img_cart" src="../images/cart.gif" />
+                </a>
+
+
+                <img align="middle" src="../images/separator.gif" />
+                <a href="/account/viewLogin" th:if="${session.account} eq null">Sign in</a>
+                <a href="/account/signOut" th:if="${session.account} ne null">Sign out</a>
 
                 <!--分隔符-->
-                <c:if test="${sessionScope.account != null}">
-                    <img align="middle" src="../images/separator.gif"/>
-                    <a href="editAccount">My Account</a>
-                </c:if>
-                <img align="middle" src="../images/separator.gif"/>
+
+                <img align="middle" src="../images/separator.gif" />
+                <a href="/account/viewAccount" th:if="${session.account} ne null">My Account</a>
+                <img align="middle" src="../images/separator.gif" th:if="${session.account} ne null" />
+                <a th:href="@{/cart/viewOrder(username=${session.account.username})}"
+                   th:if="${session.account} ne null">My Order</a>
+                <img align="middle" src="../images/separator.gif" th:if="${session.account} ne null" />
                 <!--暂未提供-->
-                <a href="../help.html">?</a>
+                <a href="/catalog/viewHelp">?</a>
             </div>
         </div>
 
