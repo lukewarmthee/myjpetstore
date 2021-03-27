@@ -53,5 +53,12 @@ class MypetstoreApplicationTests {
         System.out.println(catalogService.isItemInStock("EST-1"));
     }
 
+    //测试关键字搜索product的方法是否书写正确
+    @Test
+    void testSearchProductList(){
+        List<Product> sList = catalogService.searchProductList("a");
+        System.out.println(sList.size());
+    }
+
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -59,5 +60,15 @@ public class CatalogController {
             model.addAttribute("product",product);
         }
         return"catalog/item";   //返回catalog目录下的item.html
+    }
+
+    //为搜索框的submit按钮提供页面跳转以及信息返回,实现该功能,
+    @PostMapping("/searchProduct")
+    public String searchProduct(String keyword, Model model) {
+        if (keyword != null) {
+            List<Product> productList = catalogService.searchProductList(keyword);
+            model.addAttribute("productList",productList);
+        }
+        return"catalog/searchProduct";  //返回catalog目录下的searchProduct.html
     }
 }

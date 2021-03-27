@@ -29,7 +29,7 @@ public class CatalogService {
         return categoryMapper.getCategory(categoryId);
     }
 
-    //实现product领域所定义的两个方法
+    //实现product领域所定义的三个方法
     //1.通过productId返回product
     public Product getProduct(String productId) {
         return productMapper.getProduct(productId);
@@ -38,6 +38,12 @@ public class CatalogService {
     //2.通过categoryId返回其对应的所有产品product的信息
     public List<Product> getProductListByCategory(String categoryId) {
         return productMapper.getProductListByCategory(categoryId);
+    }
+
+    //3.关键词搜索product得到productList方法
+
+    public List<Product> searchProductList(String keywords) {
+        return productMapper.searchProductList(keywords);
     }
 
     //这里建立与ItemMapper接口定义的三个方法的连接,实现三个对应的服务

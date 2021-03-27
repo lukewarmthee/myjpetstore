@@ -41,15 +41,12 @@
 
         <div id="Search">
             <div id="SearchContent">
-                <!--搜索栏目-->
-                <form action="searchProduct" method="post">
-                    <input type="text" id="keyword" name="keyword" size="14"/>
+                <!--搜索栏目,这里搜索框作为一个post方法,postMapping届时要匹配的是searchProduct,这里采用的是绝对路径-->
+                <form action="/catalog/searchProduct" method="post">
+                    <label>
+                        <input type="text" name="keyword" size="14"/>
+                    </label>
                     <input type="submit" name="searchProducts" value="Search"/>
-                    <div class="auto hidden" id="auto">
-<!--                        <div class="auto_out">1</div>-->
-<!--                        <div class="auto_out">2</div>-->
-                    </div>
-                    <script src="js/searchProduct.js"></script>
                 </form>
             </div>
         </div>

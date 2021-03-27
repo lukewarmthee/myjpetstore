@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--采用相对路径,将top文件夹中取代header的部分移过来-->
+<div th:replace="common/top"></div>
+<!--不要把contest为id的这个div给忽略了啊大哥-->
+<div id="Content">
+
+    <div id="BackLink">
+        <a href="/catalog/viewMain">Return to Main Menu</a>
+    </div>
+
+    <div id="Catalog">
+
+<!--
+此表有三列,第一列是该产品的描述以及对应的链接进入viewProduct页面
+第二列为ProductID
+第三列为product name
+-->
+
+        <table>
+            <tr>
+                <th>&nbsp;</th>
+                <th>Product ID</th>
+                <th>Name</th>
+            </tr>
+<!--            <c:forEach var="product" items="${sessionScope.productList}">-->
+<!--                <tr>-->
+<!--                    <td>-->
+<!--                        <a href="viewProduct?productId=${product.productId}">${product.description}</a>-->
+<!--                    </td>-->
+<!--                    <td><b>-->
+<!--                        <a href="viewProduct?productId=${product.productId}">${product.productId}</a>-->
+<!--                    </b></td>-->
+<!--                    <td>${product.name}</td>-->
+<!--                </tr>-->
+<!--            </c:forEach>-->
+<!--此处注意thymeleaf的循环的写法,th:each="a:${aList}"-->
+<!--链接的话必须要有<a>节点-->
+<!--<td><a th:text="${product.productId}" th:href="@{/catalog/viewProduct(productId=${product.productId})}">productId</a></td>-->
+            <tr th:each="product:${productList}">
+                <td><a th:href="@{/catalog/viewProduct(productId=${product.productId})}" th:utext="${product.description}">product对应的图片以及描述</a></td>
+                <td><a th:href="@{/catalog/viewProduct(productId=${product.productId})}" th:text="${product.productId}">productId</a></td>
+                <td th:text="${product.name}">product.name</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+<div th:replace="common/bottom"></div>
+</body>
+</html>
