@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--写与接口ItemMapper对应的mybatis xml文件-->
+
+<mapper namespace="org.csu.mypetstore.persistence.ItemMapper">
+
+<!--输入为productId,返回一个ItemList,沙雕,记得要打逗号呀-->
+    <select id="getItemListByProduct" parameterType="string" resultType="Item">
+        SELECT
+            I.ITEMID,
+            i.productId,
+            LISTPRICE,
+            UNITCOST,
+            SUPPLIER AS supplierId,
+            I.PRODUCTID AS "product.productId",
+            NAME AS "product.name",
+            DESCN AS "product.description",
+            CATEGORY AS "product.categoryId",
+            STATUS,
+            ATTR1 AS attribute1,
+            ATTR2 AS attribute2,
+            ATTR3 AS attribute3,
+            ATTR4 AS attribute4,
+            ATTR5 AS attribute5
+        FROM ITEM I, PRODUCT P
+        WHERE P.PRODUCTID = I.PRODUCTID
+          AND I.PRODUCTID = #{value}
+    </select>
+
+<!--输入为itemId, 返回一个Item-->
+    <select id="getItem" parameterType="string" resultType="Item">
+        select
+          i.itemId,
+          i.productId,
+          listPrice,
+          unitCost,
+          supplier as supplierId,
+          i.productid as "product.productId",
+          name as "product.name",
+          descn as "product.description",
+          category as "product.categoryId",
+          status,
+          attr1 as attribute1,
+          attr2 as attribute2,
+          attr3 as attribute3,
+          attr4 as attribute4,
+          attr5 as attribute5,
+          QTY as quantity
+        from item i, inventory v, product p
+        where p.productid = i.productid
+          and i.itemid = v.itemid
+          and i.itemid = #{value}
+    </select>
+
+<!--输入为itemId, 返回该item的剩余库存-->
+    <select id="getInventoryQuantity" parameterType="string" resultType="int">
+        select qty as value
+        from inventory
+        where itemid = #{itemId}
+    </select>
+
+<!--输入一个map变量,其第一个变量为increment,即卖出的量,一个为item对象,对该item的库存进行更新-->
+    <update id="updateInventoryQuantity" parameterType="map">
+        update inventory set
+          qty = qty - #{increment}
+        where itemid = #{itemId}
+    </update>
+</mapper>

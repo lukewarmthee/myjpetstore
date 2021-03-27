@@ -1,6 +1,7 @@
 package org.csu.mypetstore;
 
 import org.csu.mypetstore.domain.Category;
+import org.csu.mypetstore.domain.Item;
 import org.csu.mypetstore.domain.Product;
 import org.csu.mypetstore.service.CatalogService;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,18 @@ class MypetstoreApplicationTests {
         System.out.println(p.getName()+" "+ p.getProductId());
     }
     //GET!!
+
+    //测试item接口中定义的三个方法
+    @Test
+    void testItem(){
+        List<Item> iList = catalogService.getItemListByProduct("FI-SW-01");
+        Item i0 = iList.get(0);
+        System.out.println(iList.size());
+        System.out.println(i0.getAttribute1()+" "+i0.getItemId()+" "+i0.getProduct().getName()+" "+i0.getStatus()+" ");
+        Item i = catalogService.getItem("EST-1");
+        System.out.println(i.getItemId()+" "+i.getProductId()+" "+i.getStatus()+" "+ i.toString());
+        System.out.println(catalogService.isItemInStock("EST-1"));
+    }
 
 
 }

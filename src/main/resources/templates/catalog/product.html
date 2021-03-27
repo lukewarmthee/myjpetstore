@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--采用相对路径,将top文件夹中取代header的部分移过来-->
+<div th:replace="common/top"></div>
+<!--不要把contest为id的这个div给忽略了啊大哥-->
+<div id="Content">
+<!--使用thymeleaf写带链接的结点,参照:
+th:text="${product.productId}" th:href="@{/catalog/viewProduct(productId=${product.productId})}"
+-->
+    <div id="BackLink">
+        <a th:text="'Return to '+${#strings.toLowerCase(product.categoryId)}" th:href="@{/catalog/viewCategory(categoryId=${product.categoryId})}">返回之前的页面</a>
+    </div>
+
+    <div id="Catalog">
+
+        <h2 th:text="${product.name}">此页面所属的产品名</h2>
+
+        <table>
+            <tr>
+                <th>Item ID</th>
+                <th>Product ID</th>
+                <th>Description</th>
+                <th>List Price</th>
+                <th>&nbsp;</th>
+            </tr>
+<!--采用thymeleaf的each进行渲染,进行迭代,稍后写viewItem页面的事后改一下这个链接,算了就现在改吧-->
+<!--※,另,第五列的add to button,要和另一个功能模块,即购物车模块的某个方法连接在一块,并且进行相应的页面跳转-->
+            <tr th:each="item:${itemList}">
+                <td><a th:text="${item.itemId}" th:href="@{/catalog/viewItem(itemId=${item.itemId})}">填itemId</a></td>
+                <td th:text="${item.productId}">productId</td>
+<!--参考变为小写写法:
+${#strings.toLowerCase(name)}
+-->
+                <td th:text="${item.attribute1}+' '+${#strings.toLowerCase(product.categoryId)}">Description,将这个item的多个attribute连在一块最终加上productna.productid得到简介</td>
+                <td th:text="${item.listPrice}">List Price</td>
+                <td>Add to cart</td>
+            </tr>
+
+        </table>
+
+    </div>
+</div>
+<div th:replace="common/bottom"></div>
+</body>
+</html>

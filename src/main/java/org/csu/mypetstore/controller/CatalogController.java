@@ -1,6 +1,7 @@
 package org.csu.mypetstore.controller;
 
 import org.csu.mypetstore.domain.Category;
+import org.csu.mypetstore.domain.Item;
 import org.csu.mypetstore.domain.Product;
 import org.csu.mypetstore.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,16 @@ public class CatalogController {
             return "catalog/category";  //返回在catalog目录中的名为category的显示文件,并且使用thymeleaf进行渲染
         }
         return "catalog/main";  //若是传入的categoryId的值为空,则并不进行页面跳转
+    }
+
+    @GetMapping("/viewProduct")
+    public String viewProduct(String productId, Model model) {
+        if (productId != null) {
+            Product product = catalogService.getProduct(productId);
+            List<Item> itemList = catalogService.getItemListByProduct(productId);
+            model.addAttribute("product",product);
+            model.addAttribute("itemList",itemList);
+        }
+        return "catalog/product";
     }
 }

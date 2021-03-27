@@ -11,7 +11,7 @@
 <!--不要把contest为id的这个div给忽略了啊大哥-->
 <div id="Content">
     <div id="BackLink">
-        <a href="main">Return to Main Menu</a>
+        <a href="/catalog/viewMain">Return to Main Menu</a>
     </div>
 
     <div id="Catalog">
@@ -25,8 +25,9 @@
                 <th>Name</th>
             </tr>
 <!--这里使用thymeleaf的each属性,写法如下:th:each="product:${productList}}"-->
+<!--事后弥补,这里因为要进一步跳到catalog/viewProduct页面,即显示该产品的所有对应的item的详细信息,故而第一行的productId信息必须要采用链接的形式-->
             <tr th:each="product:${productList}">
-                <td th:text="${product.productId}">productId</td>
+                <td><a th:text="${product.productId}" th:href="@{/catalog/viewProduct(productId=${product.productId})}">productId</a></td>
                 <td th:text="${product.name}">product.name</td>
             </tr>
 
