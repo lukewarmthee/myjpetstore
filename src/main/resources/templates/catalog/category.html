@@ -16,7 +16,7 @@
 
     <div id="Catalog">
 
-<!--thymeleaf渲染引擎比较强大的地方在于可以直接返回某个属性-->
+        <!--thymeleaf渲染引擎比较强大的地方在于可以直接返回某个属性-->
         <h2 th:text="${category.name}">此处显示这个页面对应的Category的name属性</h2>
 
         <table>
@@ -24,24 +24,14 @@
                 <th>Product ID</th>
                 <th>Name</th>
             </tr>
-<!--这里使用thymeleaf的each属性,写法如下:th:each="product:${productList}}"-->
-<!--事后弥补,这里因为要进一步跳到catalog/viewProduct页面,即显示该产品的所有对应的item的详细信息,故而第一行的productId信息必须要采用链接的形式-->
+            <!--这里使用thymeleaf的each属性,写法如下:th:each="product:${productList}}"-->
+            <!--事后弥补,这里因为要进一步跳到catalog/viewProduct页面,即显示该产品的所有对应的item的详细信息,故而第一行的productId信息必须要采用链接的形式-->
             <tr th:each="product:${productList}">
-                <td><a th:text="${product.productId}" th:href="@{/catalog/viewProduct(productId=${product.productId})}">productId</a></td>
+                <td><a th:text="${product.productId}" th:href="@{/catalog/viewProduct(productId=${product.productId})}">productId</a>
+                </td>
                 <td th:text="${product.name}">product.name</td>
             </tr>
 
-<!--暂时注释掉,之后可能用来实现某些功能-->
-<!--            <c:forEach var="product" items="${sessionScope.productList}">-->
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        <a href="viewProduct?productId=${product.productId}">${product.productId}</a>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        ${product.name}-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--            </c:forEach>-->
         </table>
 
     </div>

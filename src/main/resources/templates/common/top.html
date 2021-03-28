@@ -11,17 +11,18 @@
 
         <div id="Logo">
             <div id="LogoContent">
-                <a href="/catalog/viewMain"><img src="../images/logo-topbar.gif"/></a>
+                <a href="/catalog/viewMain"><img src="../images/logo-topbar.gif" alt="logo"/></a>
             </div>
-        </div>
+ </div>
 
-        <div id="Menu">
-            <div id="MenuContent">
-                <!--购物车-->
-                <!--                    <a <img align="middle" name="img_cart" src="../images/cart.gif" /></a>-->
+            <div id="Menu">
+                <div id="MenuContent">
+                    <!--购物车-->
+                    <!--                    <a <img align="middle" name="img_cart" src="../images/cart.gif" /></a>-->
+<!--若已经登录,则展示cart icon-->
                 <a th:href="@{/cart/viewCart(username=${session.account.username})}"
                    th:if="${session.account} ne null">
-                    <img align="middle" name="img_cart" src="../images/cart.gif" />
+                    <img align="middle" name="img_cart" src="../images/cart.gif"  alt="cart icon"/>
                 </a>
                 <a href="/account/viewLogin" th:if="${session.account} eq null">
                     <img align="middle" name="img_cart" src="../images/cart.gif" />
@@ -29,19 +30,24 @@
 
 
                 <img align="middle" src="../images/separator.gif" />
+<!--若session中account为null,则提示Sign in-->
                 <a href="/account/viewLogin" th:if="${session.account} eq null">Sign in</a>
+<!--若account不为null,则证明已登录,提示Sign out-->
                 <a href="/account/signOut" th:if="${session.account} ne null">Sign out</a>
 
                 <!--分隔符-->
 
                 <img align="middle" src="../images/separator.gif" />
+    <!--同理,若已经登录,则显示MyAccount字样-->
                 <a href="/account/viewAccount" th:if="${session.account} ne null">My Account</a>
                 <img align="middle" src="../images/separator.gif" th:if="${session.account} ne null" />
+    <!--登录后还会展示My Order字样,点击前往订单界面-->
                 <a th:href="@{/cart/viewOrder(username=${session.account.username})}"
                    th:if="${session.account} ne null">My Order</a>
+    <!--分隔符-->
                 <img align="middle" src="../images/separator.gif" th:if="${session.account} ne null" />
-                <!--暂未提供-->
-                <a href="/catalog/viewHelp">?</a>
+    <!--同样登陆后还会有前往帮助页面的字样,此时暂未提供-->
+                <a href="/catalog/viewHelp">help?</a>
             </div>
         </div>
 
@@ -57,15 +63,15 @@
             </div>
         </div>
         <div id="QuickLinks">
-            <a href="viewCategory?categoryId=FISH"><img src="../images/sm_fish.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=FISH"><img src="../images/sm_fish.gif"/></a>
             <img src="../images/separator.gif"/>
-            <a href="viewCategory?categoryId=DOGS"><img src="../images/sm_dogs.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=DOGS"><img src="../images/sm_dogs.gif"/></a>
             <img src="../images/separator.gif"/>
-            <a href="viewCategory?categoryId=REPTILES"><img src="../images/sm_reptiles.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=REPTILES"><img src="../images/sm_reptiles.gif"/></a>
             <img src="../images/separator.gif"/>
-            <a href="viewCategory?categoryId=CATS"><img src="../images/sm_cats.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=CATS"><img src="../images/sm_cats.gif"/></a>
             <img src="../images/separator.gif"/>
-            <a href="viewCategory?categoryId=BIRDS"><img src="../images/sm_birds.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=BIRDS"><img src="../images/sm_birds.gif"/></a>
         </div>
     </div>
 </header>

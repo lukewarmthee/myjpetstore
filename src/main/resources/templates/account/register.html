@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--采用相对路径,将top文件夹中取代header的部分移过来-->
+<div th:replace="common/top"></div>
+<!--不要把contest为id的这个div给忽略了啊大哥-->
+<div id="Content">
+    <div id="Catalog">
+        <form action="/account/register" method="post">
+            <h3>User Information</h3>
+
+            <table>
+                <tr>
+                    <td>User ID:</td>
+                    <td>
+                        <!--这里验证以下用户名是否存在-->
+                        <input type="text" name="username" id="username" onblur="checkUsername();">
+                        <div id="isExistInfo"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>password:</td>
+                    <td>
+                        <input type="password" name="password"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Repeat password:</td>
+                    <td>
+                        <input type="password" name="repeatedPassword"/>
+                    </td>
+                </tr>
+            </table>
+
+            <div th:include="account/includeAccountFields"></div>
+
+            <input type="submit" name="register" value="creat a new account">
+
+        </form>
+
+
+    </div>
+    <div th:replace="common/bottom"></div>
+</body>
+</html>

@@ -25,6 +25,19 @@ public class AccountController {
         return "account/login";
     }
 
+    //页面跳转方法,get_url为/account/viewRegister则返回注册界面
+    @GetMapping("/viewRegister")
+    public String viewRegister(){
+        return "account/register";
+    }
+
+    //页面跳转方法,点击sign out则跳转到viewMain界面,并且将session中的account转为空
+    @GetMapping("/signOut")
+    public String signOut(HttpSession httpSession){
+        httpSession.setAttribute("account", null);  //这里直接将account对象设为null,提示说value account is always null
+        return "catalog/main";  //返回主界面
+    }
+
     //此方法对应logon的post方法
     @PostMapping("/login")
     public String login(Account account, Model model, HttpSession httpSession) {
@@ -56,4 +69,14 @@ public class AccountController {
                 return "catalog/main";
         }
     }
+
+    //注册新用户对应的功能模块
+    @PostMapping("/register")
+    public String register(Account account){
+        //添加新用户,三个数据库插入信息
+        accountService.insertAccount(account);
+        return "account/login"; //返回登录页面
+    }
+
+
 }
