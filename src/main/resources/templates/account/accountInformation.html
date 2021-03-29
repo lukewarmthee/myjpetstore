@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--采用相对路径,将top文件夹中取代header的部分移过来-->
+<div th:replace="common/top"></div>
+<!--不要把contest为id的这个div给忽略了啊大哥-->
+<div id="Content">
+    <div id="Catalog">
+        <form action="/account/updateAccount" method="post">
+            <h3>User Information</h3>
+            <table>
+                <tr>
+                    <td>User ID:</td>
+                    <td>
+                        <input type="text" name="username" id="username" readonly="true"
+                               th:value="${session.account.username}"/>
+                    </td>
+                </tr>
+                <td>Password:</td>
+                <td>
+                    <input type="text" name="password" id="password" readonly="true"
+                           th:value="${session.account.password}"/>
+                </td>
+                <tr>
+                    <td>New password:</td>
+                    <td><input type="password" name="newPassword"/></td>
+                </tr>
+                <tr>
+                    <td>Repeat password:</td>
+                    <td><input type="password" name="repeatedPassword"/></td>
+                </tr>
+                <tr>
+                    <td>First name:</td>
+                    <td><input type="text" name="firstName" th:value="${session.account.firstName}"/></td>
+                </tr>
+                <tr>
+                    <td>Last name:</td>
+                    <td><input type="text" name="lastName" th:value="${session.account.lastName}"/></td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td><input type="text" name="status" th:value="${session.account.status}"/></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" size="40" name="email" th:value="${session.account.email}"/></td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td><input type="text" name="phone" th:value="${session.account.phone}"/></td>
+                </tr>
+                <tr>
+                    <td>Address 1:</td>
+                    <td><input type="text" size="40" name="address1" th:value="${session.account.address1}"/></td>
+                </tr>
+                <tr>
+                    <td>Address 2:</td>
+                    <td><input type="text" size="40" name="address2" th:value="${session.account.address2}"/></td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td><input type="text" name="city" th:value="${session.account.city}"/></td>
+                </tr>
+                <tr>
+                    <td>State:</td>
+                    <td><input type="text" size="4" name="state" th:value="${session.account.state}"/></td>
+                </tr>
+                <tr>
+                    <td>Zip:</td>
+                    <td><input type="text" size="10" name="zip" th:value="${session.account.zip}"/></td>
+                </tr>
+                <tr>
+                    <td>Country:</td>
+                    <td><input type="text" size="15" name="country" th:value="${session.account.country}"/></td>
+                </tr>
+
+                <tr>
+                    <td>Language Preference:</td>
+                    <td>
+                        <select name="languagePreference" th:value="${session.account.languagePreference}">
+                            <option value="English">English</option>
+                            <option value="Japanese">Japanese</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Favourite Category:</td>
+                    <td>
+                        <select name="favouriteCategoryId" th:value="${session.account.favouriteCategoryId}">
+                            <option value="FISH">FISH</option>
+                            <option value="DOGS">DOGS</option>
+                            <option value="REPTILES">REPTILES</option>
+                            <option value="CATS">CATS</option>
+                            <option value="BIRDS">BIRDS</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+
+            <input type="submit" name="register" value="Save account information"/>
+        </form>
+    </div>
+</div>
+<div th:replace="common/bottom"></div>
+</body>
+</html>

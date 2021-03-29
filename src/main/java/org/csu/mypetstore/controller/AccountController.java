@@ -31,6 +31,12 @@ public class AccountController {
         return "account/register";
     }
 
+    //页面跳转方法,客户端通过get方法传输/viewAccount,返回账户信息界面
+    @GetMapping("viewAccount")
+    String viewAccount(){
+        return "account/accountInformation";
+    }
+
     //页面跳转方法,点击sign out则跳转到viewMain界面,并且将session中的account转为空
     @GetMapping("/signOut")
     public String signOut(HttpSession httpSession){
@@ -76,6 +82,20 @@ public class AccountController {
         //添加新用户,三个数据库插入信息
         accountService.insertAccount(account);
         return "account/login"; //返回登录页面
+    }
+
+    //客户对post方法请求updateAccount
+    @PostMapping("updateAccount")
+    public String updateAccount(Account account, String newPassword, HttpSession httpSession){
+        //要更新Account相关的三个数据库的账户信息
+        //判断是否更新了密码,若是更新了,则要将穿过来的account对象的password更新
+        if(!newPassword.equals("")){
+            account.setPassword(newPassword);
+        }
+        //然后进行account session化并且返回页面
+        accountService.updateAccount(account);
+        httpSession.setAttribute("account",account);
+        return "account/accountInformation";
     }
 
 
