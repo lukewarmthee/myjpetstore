@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.csu.mypetstore.persistence.CartItemMapper">
+
+    <!--getCartItemList方法-->
+    <select id="getCartItemList" parameterType="string" resultType="CartItem">
+        select username,
+               i.itemid as "item.itemId",
+               i.productid as "item.product.productId",
+               name as "item.product.name",
+               i.attr1 as "item.attribute1",
+               quantity,
+               instock,
+               c.listprice,
+               totalprice,
+               banned
+        from cart c, item i, product p
+        where c.username = #{username}
+        and p.productid = i.productid
+        and i.itemid = c.itemid
+    </select>
+
+    <!--getCartItem方法,参数:username,itemId-->
+    <select id="getCartItem" resultType="CartItem">
+        select username,
+               itemid as "item.itemId",
+               quantity,
+               instock,
+               listprice,
+               totalprice,
+               banned
+        from cart
+        where username = #{username}
+          and itemid = #{item.itemId}
+    </select>
+
+    <!--getCartItemListByItemId方法-->
+    <select id="getCartItemListByItemId" parameterType="string" resultType="CartItem">
+        select username,
+               itemid as "item.itemId",
+               quantity,
+               instock,
+               listprice,
+               totalprice,
+               banned
+        from cart
+        where itemid = #{itemId}
+    </select>
+
+    <!--addCartItem方法,表示加入购物车(从未加过的时候)-->
+    <insert id="addCartItem">
+        insert into cart(username, itemid, quantity, listprice, instock, totalprice, banned)
+        select #{username},
+               #{item.itemId},
+               1,
+               #{item.listPrice},
+               #{item.quantity},
+               #{item.listPrice},
+               0
+        from dual
+        where not exists(select * from cart where itemid = #{item.itemId} and username = #{username})
+    </insert>
+
+    <!--cartItemQtyUpOne方法,某购物车商品条目单独加一-->
+    <update id="cartItemQtyUpOne">
+        update cart
+        set quantity = quantity + 1
+        where username = #{username}
+          and itemid = #{item.itemId}
+    </update>
+
+    <!--addItemTotalPrice方法,用于修改某购物车条目的总价格-->
+    <update id="addItemTotalPrice">
+        update cart
+        set totalprice = #{totalPrice}
+        where username = #{username}
+          and itemid = #{item.itemId}
+    </update>
+
+    <!--updateCartItemQuantity方法,用于修改某购物车条目的商品数目-->
+    <update id="updateCartItemQuantity">
+        update cart
+        set quantity = #{newQuantity}
+        where username = #{username}
+          and itemid = #{item.itemId}
+    </update>
+
+    <!--deleteCartItem方法,删除某个购物车条目-->
+    <delete id="deleteCartItem">
+        delete
+        from cart
+        where username = #{username}
+          and itemid = #{item.itemId}
+    </delete>
+
+    <!--updateCartItem方法,后台管理修改某商品的单价和库存故而这里也要修改商品条目中的三个属性值-->
+    <!--经典忘记标点-->
+    <update id="updateCartItem">
+        update cart
+        set listprice  = #{listPrice},
+            instock    = #{inStock},
+            totalprice = #{totalPrice}
+        where itemid = #{itemId}
+    </update>
+
+    <!--updateCartItemStock方法,同上,不过只修改库存-->
+    <update id="updateCartItemStock">
+        update cart
+        set instock = #{inStock}
+        where itemid = #{itemId}
+    </update>
+
+    <!--banCartItem方法,用于商品下架后更新购物车数据库-->
+    <update id="banCartItem" parameterType="String">
+        update cart
+        set banned = 1
+        where itemid = #{itemId}
+    </update>
+
+    <!--unBanCartItem方法,同上,商品商家操作修改数据库-->
+    <update id="unBanCartItem" parameterType="String">
+        update cart
+        set banned = 0
+        where itemid = #{itemId}
+    </update>
+</mapper>

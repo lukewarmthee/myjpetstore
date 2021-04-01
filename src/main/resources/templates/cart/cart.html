@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/jpetstore.css" type="text/css"/>
+</head>
+<body>
+<!--采用相对路径,将top文件夹中取代header的部分移过来-->
+<div th:replace="common/top"></div>
+<!--不要把contest为id的这个div给忽略了啊大哥-->
+<div id="Content">
+
+    <div id="BackLink">
+        <a href="/catalog/viewMain">Return to Main Menu</a>
+    </div>
+
+    <div id="Catalog">
+
+        <div id="Cart">
+
+            <h2>Shopping Cart</h2>
+
+            <!--倘若购物车为空, 表格如下-->
+            <table align="middle" th:if="${cartMessage} eq 'cartEmpty'">
+                <tr>
+                    <th><b>Item ID</b></th>
+                    <th><b>Product ID</b></th>
+                    <th><b>Description</b></th>
+                    <th><b>Quantity</b></th>
+                    <th><b>In Stock?</b></th>
+                    <th><b>List Price</b></th>
+                    <th><b>Total Cost</b></th>
+                    <th><b>State</b></th>
+                </tr>
+
+                <tr>
+                    <td colspan="8"><b>Your cart is empty.</b></td>
+                </tr>
+            </table>
+
+            <!--倘若购物车不为空, 表格如下-->
+            <table align="middle" th:if="${cartMessage} eq 'cartNotEmpty'">
+                <tr>
+                    <th><b>Item ID</b></th>
+                    <th><b>Product ID</b></th>
+                    <th><b>Description</b></th>
+                    <th><b>Quantity</b></th>
+                    <th><b>In Stock?</b></th>
+                    <th><b>List Price</b></th>
+                    <th><b>Total Cost</b></th>
+                    <th><b>State</b></th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+
+                <!--循环显示每个商品-->
+                <tr th:each="cartItem:${cartItemList}">
+                    <!--第一列,itemId,带viewItem的链接-->
+                    <td>
+                        <a th:href="@{/catalog/viewItem(itemId = ${cartItem.item.itemId})}"
+                           th:text="${cartItem.item.itemId}">itemId</a>
+                    </td>
+
+                    <!--第二列,productId,带viewProduct的链接-->
+                    <td>
+                        <a th:href="@{/catalog/viewProduct(productId = ${cartItem.item.product.productId})}"
+                           th:text="${cartItem.item.itemId}">productId</a>
+                    </td>
+
+                    <!--这里是商品描述-->
+                    <td th:text="${cartItem.item.attribute1} + ' ' + ${cartItem.item.product.name}"></td>
+
+                    <!--form表单,修改商品数量进行更新-->
+                    <form th:action="@{/cart/updateCartItemQuantity(username = ${cartItem.username}, itemId = ${cartItem.item.itemId})}">
+
+                        <!--用户输入数量进行修改-->
+                        <td>
+                            <input th:value="${cartItem.quantity}" name="quantity">
+                        </td>
+
+                        <!--判断库存是否足够,is inStock-->
+                        <td th:if="${cartItem.inStock} ge ${cartItem.quantity}"><b>Yes</b></td>
+                        <td th:if="${cartItem.inStock} lt ${cartItem.quantity}"><b>No</b></td>
+
+                        <!--商品单价-->
+                        <td th:text="${cartItem.listPrice}">List Price</td>
+
+                        <!--该商品总价-->
+                        <td th:text="${cartItem.totalPrice}">Total Price</td>
+
+                        <!--判断商品状态,是否在售,做判断-->
+                        <td th:if="${cartItem.banned} eq 0" style="color: green">On Sale</td>
+                        <td th:if="${cartItem.banned} eq 1" style="color: red">Off the shelves</td>
+
+                        <!--提交修改数量,更新总价以及数据库-->
+                        <td>
+                            <input type="submit" class="Button" value="update"/>
+                        </td>
+
+                    </form>
+
+                    <!--移除商品订单按钮-->
+                    <td>
+                        <a class="Button"
+                           th:href="@{/cart/removeCartItem(username = ${cartItem.username},itemId = ${cartItem.item.itemId})}">Remove</a>
+                    </td>
+
+                </tr>
+                <!--此处到时候还要加一个所有商品总价按钮吗?-->
+            </table>
+
+            <!--此处是确认订单按钮,跳往相应界面-->
+            <a class="Button" th:href="@{/cart/viewConfirmOrder(usernmae = ${session.account.username})}"
+               th:if="${cartMessage} eq 'cartNotEmpty'">Proceed to Checkout</a>
+
+        </div>
+
+        <div id="Separator">&nbsp;</div>
+    </div>
+
+</div>
+
+<div th:replace="common/bottom"></div>
+</body>
+</html>
