@@ -17,11 +17,11 @@
 
     <div id="Catalog">
 
-<!--
-此表有三列,第一列是该产品的描述以及对应的链接进入viewProduct页面
-第二列为ProductID
-第三列为product name
--->
+        <!--
+        此表有三列,第一列是该产品的描述以及对应的链接进入viewProduct页面
+        第二列为ProductID
+        第三列为product name
+        -->
 
         <table>
             <tr>
@@ -29,23 +29,14 @@
                 <th>Product ID</th>
                 <th>Name</th>
             </tr>
-<!--            <c:forEach var="product" items="${sessionScope.productList}">-->
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        <a href="viewProduct?productId=${product.productId}">${product.description}</a>-->
-<!--                    </td>-->
-<!--                    <td><b>-->
-<!--                        <a href="viewProduct?productId=${product.productId}">${product.productId}</a>-->
-<!--                    </b></td>-->
-<!--                    <td>${product.name}</td>-->
-<!--                </tr>-->
-<!--            </c:forEach>-->
-<!--此处注意thymeleaf的循环的写法,th:each="a:${aList}"-->
-<!--链接的话必须要有<a>节点-->
-<!--<td><a th:text="${product.productId}" th:href="@{/catalog/viewProduct(productId=${product.productId})}">productId</a></td>-->
+            <!--此处注意thymeleaf的循环的写法,th:each="a:${aList}"-->
+            <!--链接的话必须要有<a>节点-->
+            <!--<td><a th:text="${product.productId}" th:href="@{/catalog/viewProduct(productId=${product.productId})}">productId</a></td>-->
             <tr th:each="product:${productList}">
-                <td><a th:href="@{/catalog/viewProduct(productId=${product.productId})}" th:utext="${product.description}">product对应的图片以及描述</a></td>
-                <td><a th:href="@{/catalog/viewProduct(productId=${product.productId})}" th:text="${product.productId}">productId</a></td>
+                <td><a th:href="@{/catalog/viewProduct(productId=${product.productId})}"
+                       th:utext="${product.description}">product对应的图片以及描述</a></td>
+                <td><a th:href="@{/catalog/viewProduct(productId=${product.productId})}" th:text="${product.productId}">productId</a>
+                </td>
                 <td th:text="${product.name}">product.name</td>
             </tr>
 

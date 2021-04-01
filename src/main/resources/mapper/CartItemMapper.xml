@@ -55,7 +55,7 @@
         insert into cart(username, itemid, quantity, listprice, instock, totalprice, banned)
         select #{username},
                #{item.itemId},
-               1,
+               0,
                #{item.listPrice},
                #{item.quantity},
                #{item.listPrice},

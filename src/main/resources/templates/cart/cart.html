@@ -22,7 +22,7 @@
             <h2>Shopping Cart</h2>
 
             <!--倘若购物车为空, 表格如下-->
-            <table align="middle" th:if="${cartMessage} eq 'cartEmpty'">
+            <table th:if="${cartMessage} eq 'cartEmpty'">
                 <tr>
                     <th><b>Item ID</b></th>
                     <th><b>Product ID</b></th>

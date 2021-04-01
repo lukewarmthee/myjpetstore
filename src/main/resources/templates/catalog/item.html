@@ -20,36 +20,51 @@
     <div id="Catalog">
 
         <table>
+
+            <!--商品简介,包括样品图-->
             <tr>
-                <td th:utext="${product.description}">第一行:宠物个体对应产品的简介,使用uTEXT会将数据库的图片进行显示</td>
+                <td th:utext="${product.description}">description</td>
             </tr>
+
+            <!--商品的itemId-->
             <tr>
-                <td th:text="${item.itemId}"><b>第二行宠物个体的itemId</b></td>
+                <td th:text="${item.itemId}"><b>ItemId</b></td>
             </tr>
+
+            <!--商品的属性(描述)-->
             <tr>
                 <td><span style="font-size: small; "><b th:text="${item.attribute1}">
                 </b></span></td>
             </tr>
+
+            <!--此商品的产品名-->
             <tr>
-                <td th:text="${product.name}">所对应的产品名</td>
+                <td th:text="${product.name}">name</td>
             </tr>
-            <!--此行内容选择,若是库存小于等于0,则返回back ordered, 否则返回quantity in stock-->
+
+            <!--判断是否还有库存,若是库存小于等于0,则返回back ordered(缺货), 否则返回quantity in stock(库存数量)-->
             <tr>
                 <td>
                     <span th:if="${item.quantity} le 0">Back ordered</span>
                     <span th:if="${item.quantity} gt 0" th:text="${item.quantity+' in stock.'}"></span>
                 </td>
             </tr>
+
+            <!--商品的单价-->
             <tr>
-                <td th:text="${item.listPrice}">此处是item的价格</td>
+                <td th:text="${item.listPrice}">listPrice</td>
             </tr>
 
-            <!--此乃添加到购物车功能,稍后修改-->
-            <!--            <tr>-->
-            <!--                <td>-->
-            <!--                    <a class="Button" href="addItemToCart?workingItemId=${item.itemId}">Add to Cart</a>-->
-            <!--                </td>-->
-            <!--            </tr>-->
+            <!--加入购物车按钮,首先判断用户是否已经登录,若是已登录则跳往购物车界面,否则跳往登录界面-->
+            <tr>
+                <td>
+                    <a class="Button"
+                       th:href="@{/cart/addItemToCart(itemId=${item.itemId},username=${session.account.username})}"
+                       th:if="${session.account} ne null">Add to Cart</a>
+                    <a class="Button" th:href="@{/account/viewLogin}" th:if="${session.account} eq null">Add to Cart</a>
+                </td>
+            </tr>
+
         </table>
 
     </div>
