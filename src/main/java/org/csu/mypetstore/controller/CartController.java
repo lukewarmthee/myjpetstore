@@ -67,8 +67,34 @@ public class CartController {
         //返回购物车不为空的消息
         String cartMessage = "cartNotEmpty";
         model.addAttribute("cartMessage", cartMessage);
-        model.addAttribute("cartItemList",cartItemList);
+        model.addAttribute("cartItemList", cartItemList);
         return "cart/cart"; //返回cart目录下的cart.html
+    }
+
+    //移除购物车商品的控制器方法
+    @GetMapping("/removeCartItem")
+    String removeCartItem(String username, String itemId, Model model) {
+
+        //将特定商品从购物车表中删除
+        Item item = catalogService.getItem(itemId);
+        cartService.deleteCartItem(username, item);
+
+        //得到cartItem列表
+        List<CartItem> cartItemList = cartService.getCartItemList(username);
+
+        //判断得到的cartItemList是否不为空
+        if (cartItemList.size() > 0) {
+            //返回一个cartMessage,提示购物车不为空
+            String cartMessage = "cartNotEmpty";
+            model.addAttribute("cartMessage", cartMessage);
+            model.addAttribute("cartItemList", cartItemList);
+        } else {
+            //否则返回为空
+            String cartMessage = "cartEmpty";
+            model.addAttribute("cartMessage", cartMessage);
+        }
+        return "cart/cart"; //返回cart目录下的cart.html
+
     }
 
 }
